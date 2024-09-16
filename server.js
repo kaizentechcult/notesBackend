@@ -7,7 +7,16 @@ import dbConnect from "./dbconnect.js";
 const app = express();
 
 app.use("/", router);
-app.use(cors({ origin: "http://localhost:3000" }));
+// app.use(cors({ origin: "http://localhost:3000" }));
+
+// Enable CORS for all routes
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000", // Frontend URL
+//     credentials: true, // If you need to send cookies or auth headers
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 
 dbConnect();
