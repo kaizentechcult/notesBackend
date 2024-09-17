@@ -23,9 +23,16 @@ const salt = 12;
 // Existing register route
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
+  console.log(name, email, password);
   try {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = new User({ name, email, password: hashedPassword });
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      return res.status(409).json({ error: "User already exists" });
+    }
+
+    console.log(user);
     await user.save();
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "14d",
@@ -51,7 +58,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ error: "Invalid credentials" });
+      return res.json({ error: "Invalid email" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
