@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cors from "cors";
 
-
 const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -37,13 +36,6 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "14d",
     });
-    res.cookie(
-      "authToken",
-      token,
-      { httpOnly: true },
-      { maxAge: 14 * 24 * 60 * 60 * 1000 },
-      { secure: process.env.NODE_ENV === "production" }
-    );
     res.status(201).json({ token });
   } catch (error) {
     res.status(400).json({ error: error.message });
