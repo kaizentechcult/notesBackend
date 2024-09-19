@@ -36,23 +36,6 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "14d",
     });
-    // Set a cookie with the JWT token, to be sent back with each request
-    // httpOnly flag ensures that the cookie is only accessible by the web server
-    // and not by any client-side script, which reduces the risk of cross-site
-    // scripting attacks (XSS). The maxAge option sets the cookie to expire in
-    // 14 days. The secure flag ensures that the cookie is only sent over HTTPS
-    // connections, which is important because we don't want to send the JWT
-    // token over an unencrypted connection. This is only set when the server
-    // is running in production mode, as determined by the NODE_ENV environment
-    // variable. In development mode, this is not set and the cookie is sent
-    // over an unencrypted connection.
-    // res.cookie(
-    //   "authToken",
-    //   token,
-    //   { httpOnly: true },
-    //   { maxAge: 14 * 24 * 60 * 60 * 1000 },
-    //   { secure: process.env.NODE_ENV === "production" }
-    // );
     res.status(201).json({ token });
   } catch (error) {
     res.status(400).json({ error: error.message });
