@@ -9,12 +9,12 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-router.use(
-  cors({
-    origin: "http://localhost:3000", // Frontend URL
-    credentials: true, // If you need to send cookies or auth headers
-  })
-);
+// router.use(
+//   cors({
+//     origin: "http://localhost:3000", // Frontend URL
+//     credentials: true, // If you need to send cookies or auth headers
+//   })
+// );
 router.use(cors());
 
 const salt = 12;
@@ -46,7 +46,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   router.use(express.json());
   const { email, password } = req.body;
-  // console.log(req.body);
+  console.log(req.body);
   try {
     const user = await User.findOne({ email });
     if (!user) {
