@@ -45,6 +45,7 @@ router.post("/register", async (req, res) => {
 });
 router.post("/verify", async (req, res) => {
   const { email, OTP } = req.body;
+
   console.log(email, OTP);
   try {
     const user = await User.findOne({ email });
@@ -62,6 +63,32 @@ router.post("/verify", async (req, res) => {
 });
 
 // New login route
+// router.post("/login", async (req, res) => {
+//   router.use(express.json());
+//   const { email, password } = req.body;
+//   console.log(req.body);
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.json({ error: "Invalid email" });
+//     }
+//     const isMatch = await bcrypt.compare(password, user.password, (err, result) => {
+//       if (err) {
+//         return res.status(500).json({ error: err.message });
+//       }
+//       if (!result) {
+//         return res.status(400).json({ error: "Invalid credentials" });
+//       }
+//     });
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "14d",
+//     });
+//     res.json({ token });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 router.post("/login", async (req, res) => {
   router.use(express.json());
   const { email, password } = req.body;
