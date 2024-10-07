@@ -1,21 +1,31 @@
 // import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
   },
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
+    select: false,
+  },
+  OTP: {
+    type: String,
+    // required: false,
+  },
+  verified: {
+    type: Boolean,
+    // required: true,
+    default: false,
   },
 });
-
 // UserSchema.pre("save", async function (next) {
 //   const user = this;
 //   if (!user.isModified("password")) return next();
