@@ -95,6 +95,9 @@ router.post("/login", async (req, res) => {
   console.log(req.body);
   try {
     const user = await User.findOne({ email });
+    if (user.verified === false) {
+      return res.json({ error: "Please verify your email" });
+    }
     if (!user) {
       return res.json({ error: "Invalid email" });
     }
