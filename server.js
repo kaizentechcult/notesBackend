@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import router from "./routes/authRoute.js";
 import dbConnect from "./dbconnect.js";
+import sendMail from "./mailer.js";
 
 const app = express();
 
@@ -29,6 +30,16 @@ app.get("/", (req, res) => {
   // console.log("Hello World!");
   res.send("Hello World!");
 });
+
+// try {
+  
+//   sendMail("kaizentechcult@gmail.com")
+//     .then(() => {
+//       console.log("Mail has been sent");
+//     });
+// } catch (error) {
+  
+// }
 
 app.listen(8080, () => {
   console.log("Server started on port 8080");
