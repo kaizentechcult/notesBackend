@@ -1,18 +1,19 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import router from "./routes/authRoute.js";
+import AuthRouter from "./routes/authRoute.js";
+import RequestRouter from "./routes/requestsRoute.js";
 import dbConnect from "./dbconnect.js";
 import sendMail from "./mailer.js";
 
 const app = express();
 
-app.use("/", router);
+app.use("/", AuthRouter);
+app.use("/api", RequestRouter);
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
-
 
 // Enable CORS for all routes
 app.use(
